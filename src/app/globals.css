@@ -1,26 +1,681 @@
 @import "tailwindcss";
 
+/* ==========================================
+   METALLIC LIQUID GLASS UI THEME
+   AuthentiScan (Watch) - Gold/Amber Accent
+   Dark Mode Only
+   ========================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark Theme Only - Luxury Watch Aesthetic */
+  --background: #1d1d1f;
+  --background-secondary: #2d2d2f;
+  --foreground: #f5f5f7;
+  --foreground-secondary: #a1a1a6;
+  --accent: #FFB800;
+  --accent-hover: #FFCC33;
+  --accent-secondary: #E6A600;
+  --accent-glow: rgba(255, 184, 0, 0.3);
+  --border: rgba(255, 255, 255, 0.1);
+  --glass: rgba(45, 45, 47, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glass morphism utility */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+/* macOS-style window */
+.macos-window {
+  background: var(--background-secondary);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.macos-window-header {
+  height: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.macos-traffic-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.macos-traffic-light.close { background: #ff5f57; }
+.macos-traffic-light.minimize { background: #febc2e; }
+.macos-traffic-light.maximize { background: #28c840; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--foreground-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* Button styles */
+.btn-primary {
+  background: var(--accent);
+  color: #1d1d1f;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+/* Animation utilities */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+  50% { box-shadow: 0 0 40px rgba(255, 184, 0, 0.5); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Selection color */
+::selection {
+  background: var(--accent);
+  color: #1d1d1f;
+}
+
+/* Main Card with Liquid Glass effect - Dark Mode */
+.liquid-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(45, 45, 48, 0.8) 0%,
+    rgba(35, 35, 38, 0.7) 50%,
+    rgba(28, 28, 32, 0.75) 100%
+  );
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Chrome Ring Button - Gold/Silver luxury mix for watch app */
+.chrome-ring-button {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+  background: conic-gradient(
+    from 0deg,
+    #FFD700 0deg,
+    #FFFFFF 30deg,
+    #E6C200 60deg,
+    #F0E68C 90deg,
+    #DAA520 120deg,
+    #FFFACD 150deg,
+    #FFD700 180deg,
+    #E8E8E8 210deg,
+    #FFE55C 240deg,
+    #FFCC00 270deg,
+    #FFFFFF 300deg,
+    #F5DEB3 330deg,
+    #FFD700 360deg
+  );
+  box-shadow:
+    0 2px 16px rgba(255, 215, 0, 0.25),
+    0 1px 4px rgba(255, 255, 255, 0.1),
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.chrome-ring-button::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 180deg,
+    rgba(255, 184, 0, 0.4) 0deg,
+    rgba(255, 204, 51, 0.4) 60deg,
+    rgba(230, 166, 0, 0.3) 120deg,
+    rgba(255, 184, 0, 0.4) 180deg,
+    rgba(255, 220, 80, 0.4) 240deg,
+    rgba(200, 150, 0, 0.3) 300deg,
+    rgba(255, 184, 0, 0.4) 360deg
+  );
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.chrome-ring-button:hover {
+  transform: scale(1.02);
+  box-shadow:
+    0 4px 24px rgba(255, 215, 0, 0.35),
+    0 2px 8px rgba(255, 255, 255, 0.15),
+    0 6px 30px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+.chrome-ring-button:active {
+  transform: scale(0.98);
+}
+
+.chrome-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    #2a2a2e 0%,
+    #1e1e22 50%,
+    #18181c 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.08),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Liquid Glass Button - Dark Mode */
+.liquid-glass-button {
+  position: relative;
+  padding: 16px 32px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(
+    180deg,
+    rgba(55, 55, 60, 0.9) 0%,
+    rgba(40, 40, 45, 0.85) 100%
+  );
+  color: var(--foreground);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.liquid-glass-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 16px 16px 0 0;
+  pointer-events: none;
+}
+
+.liquid-glass-button:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.liquid-glass-button:active {
+  transform: translateY(0);
+  background: linear-gradient(
+    180deg,
+    rgba(45, 45, 50, 0.9) 0%,
+    rgba(35, 35, 40, 0.85) 100%
+  );
+}
+
+/* Liquid Glass Tab - Dark Mode */
+.liquid-glass-tab {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #86868b;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.liquid-glass-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #a1a1a6;
+}
+
+.liquid-glass-tab.active {
+  background: linear-gradient(
+    180deg,
+    rgba(55, 55, 60, 0.9) 0%,
+    rgba(40, 40, 45, 0.85) 100%
+  );
+  color: #f5f5f7;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Liquid Glass Content Area - Dark Mode */
+.liquid-glass-content {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Liquid Glass Toggle - Dark Mode */
+.liquid-glass-toggle {
+  position: relative;
+  width: 52px;
+  height: 32px;
+  border-radius: 16px;
+  cursor: pointer;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.liquid-glass-toggle.active {
+  background: linear-gradient(
+    180deg,
+    var(--accent) 0%,
+    var(--accent-secondary) 100%
+  );
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 2px 8px var(--accent-glow);
+}
+
+.liquid-glass-toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    #4a4a4e 0%,
+    #3a3a3e 100%
+  );
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.liquid-glass-toggle.active .liquid-glass-toggle-knob {
+  transform: translateX(20px);
+}
+
+/* Liquid Glass Preview Card - Dark Mode */
+.liquid-glass-preview-card {
+  background: linear-gradient(
+    135deg,
+    rgba(45, 45, 48, 0.5) 0%,
+    rgba(35, 35, 38, 0.4) 100%
+  );
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: all 0.2s ease;
+}
+
+.liquid-glass-preview-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Chrome Pill Button - Dark Mode */
+.chrome-pill-button {
+  position: relative;
+  padding: 12px 28px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(
+    180deg,
+    #3a3a3e 0%,
+    #2a2a2e 100%
+  );
+  color: #a1a1a6;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.chrome-pill-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+.chrome-pill-button:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.chrome-pill-button.primary {
+  background: linear-gradient(
+    180deg,
+    var(--accent) 0%,
+    var(--accent-secondary) 100%
+  );
+  color: #1d1d1f;
+  font-weight: 600;
+}
+
+/* Metallic Text Gradient - Gold accent */
+.metallic-text-gradient {
+  background: linear-gradient(
+    135deg,
+    #FFB800 0%,
+    #FFCC33 25%,
+    #FFE066 50%,
+    #FFB800 75%,
+    #E6A600 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: metallic-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes metallic-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Chrome text effect - Pure metallic silver */
+.chrome-text {
+  background: linear-gradient(
+    180deg,
+    #e8e8e8 0%,
+    #ffffff 20%,
+    #c0c0c0 40%,
+    #e0e0e0 60%,
+    #a8a8a8 80%,
+    #d0d0d0 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+/* Gold text effect - Luxury watch aesthetic */
+.gold-text {
+  background: linear-gradient(
+    180deg,
+    #FFD700 0%,
+    #FFF8DC 20%,
+    #DAA520 40%,
+    #FFE55C 60%,
+    #B8860B 80%,
+    #FFD700 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+/* Accent glow animation */
+@keyframes accent-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 184, 0, 0.6);
+  }
+}
+
+.animate-accent-glow {
+  animation: accent-glow 2s ease-in-out infinite;
+}
+
+/* Subtle floating animation for background elements */
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 5s ease-in-out infinite;
+}
+
+/* Watch-specific UI elements */
+.watch-card {
+  background: linear-gradient(
+    135deg,
+    rgba(45, 45, 48, 0.8) 0%,
+    rgba(35, 35, 38, 0.7) 100%
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  padding: 1.5rem;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(255, 184, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.watch-card:hover {
+  border-color: rgba(255, 215, 0, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 20px rgba(255, 184, 0, 0.1);
+}
+
+/* Authenticity badges */
+.badge-authentic {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+.badge-suspicious {
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.2), rgba(255, 184, 0, 0.1));
+  border: 1px solid rgba(255, 184, 0, 0.3);
+  color: var(--accent);
+}
+
+.badge-fake {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+/* Input styling */
+input, textarea {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--foreground);
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--foreground-secondary);
+}
+
+/* Scan button - Premium CTA */
+.scan-button {
+  position: relative;
+  padding: 16px 48px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(
+    180deg,
+    var(--accent) 0%,
+    var(--accent-secondary) 100%
+  );
+  color: #1d1d1f;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow:
+    0 4px 16px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.scan-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 16px 16px 0 0;
+  pointer-events: none;
+}
+
+.scan-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 24px rgba(255, 184, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.scan-button:active {
+  transform: translateY(0);
 }
